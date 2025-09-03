@@ -1,6 +1,12 @@
 # Flow Matching and Diffusion Models from scratch
 
 Wanted to play with them to learn how they work, so here it is.
+
+![img](images/flow_gmm2.png)
+
+example of trained flow from $\mathcal{N}(0,1)$ (green) to a Gaussian Mixture Model (red).
+
+
 The python files have all the ingredients (loss, sampling method, architecture, training loop), and the notebook (which is too heavy right now...) examines several toy examples:
 - A 2D Gaussian distribution
 - A 2D Gaussian Mixture Model
