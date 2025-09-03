@@ -11,3 +11,9 @@ The python files have all the ingredients (loss, sampling method, architecture, 
 
 The notebook also includes some visuals that show the generation process.
 So far, only ran flow matching.
+
+
+Resources based on:
+NeurIPS 2024 Flow Matching tutorial: [https://neurips.cc/virtual/2024/tutorial/99531](https://neurips.cc/virtual/2024/tutorial/99531)
+Yaron Lipman, Ricky T. Q. Chen, Heli Ben-Hamu, Maximilian Nickel, & Matt Le. (2023). Flow Matching for Generative Modeling. URL: [https://arxiv.org/abs/2210.02747](https://arxiv.org/abs/2210.02747)
+Jonathan Ho, Ajay Jain, & Pieter Abbeel (2020). Denoising Diffusion Probabilistic Models. CoRR, abs/2006.11239. URL: [https://arxiv.org/abs/2006.11239](https://arxiv.org/abs/2006.11239)
