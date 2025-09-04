@@ -3,8 +3,10 @@ import matplotlib.animation as animation
 from IPython.display import HTML
 import numpy as np
 
+FLOW_PLOT_N = 1000
 
-def time_animation(xts, lims=None, title='', c='r', flow_plot_n=1000, interval=100, last_extended=10):
+
+def time_animation(xts, lims=None, title='', c='r', flow_plot_n=FLOW_PLOT_N, interval=100, last_extended=10):
     """
     Creates a matplotlib animation from a 3D numpy array by displaying scatter plots over the last dimension (time).
 
