@@ -1,56 +1,7 @@
-from IPython.core.display_functions import display
 from matplotlib import pyplot as plt
 import matplotlib.animation as animation
 from IPython.display import HTML
 import numpy as np
-
-
-def slider2d(xts, lims=None, title='', c='r', flow_plot_n=1000):
-    from ipywidgets import interact, FloatSlider
-    from matplotlib import pyplot as plt
-    import io
-    from PIL import Image
-    import numpy as np  # Import numpy
-    start_t = 0  # Define start_t if it's not already defined
-    # Pre-generate all frames
-    time_steps = np.linspace(start_t, 1, xts.shape[-1])
-    frames = []
-    for i in range(xts.shape[-1]):
-        fig, ax = plt.subplots(1, 1, figsize=(6, 4), sharex=True, sharey=True)
-        if not isinstance(c, np.ndarray) and not isinstance(c, list):
-            ax.plot(xts[:flow_plot_n, 0].T, xts[:flow_plot_n, 1].T, c='grey', alpha=0.1, zorder=0, linewidth=0.3)
-        else:
-            for unique_c in np.unique(c):
-                mask = np.array(c[:flow_plot_n]) == unique_c
-                ax.plot(xts[:flow_plot_n][mask][:, 0].T, xts[:flow_plot_n][mask][:, 1].T, alpha=0.1, zorder=0,
-                        linewidth=0.3, c=unique_c)
-        ax.scatter(xts[:flow_plot_n, 0, i], xts[:flow_plot_n, 1, i],
-                   c=np.full(flow_plot_n, c) if not isinstance(c, np.ndarray) and not isinstance(c, list) else c[
-                                                                                                               :flow_plot_n],
-                   alpha=0.1 + 0.9 * time_steps[i],
-                   zorder=1, edgecolor='w', linewidth=1)
-        ax.set_title(title + "\n" * bool(title) + f'Flow at t={time_steps[i]:.2f}')
-        if lims:
-            plt.xlim(lims[0])
-            plt.ylim(lims[1])
-
-        # Save the figure to a buffer and load as a PIL Image
-        buf = io.BytesIO()
-        fig.savefig(buf, format='png')
-        buf.seek(0)
-        image = Image.open(buf).copy()
-        frames.append(image)
-        plt.close(fig)
-
-    def plot_flow_at_t(t):
-        # Find the index corresponding to the current time t
-        closest_t_index = np.argmin(np.abs(time_steps - t))
-        # Use display to show the image in the output cell
-        display(frames[closest_t_index])
-
-    return interact(plot_flow_at_t,
-                    t=FloatSlider(min=start_t, max=1.0, step=time_steps[1] - time_steps[0], value=start_t,
-                                  description='Time (t):'))
 
 
 def time_animation(xts, lims=None, title='', c='r', flow_plot_n=1000, interval=100, last_extended=10):
