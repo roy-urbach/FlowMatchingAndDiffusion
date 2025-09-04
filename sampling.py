@@ -36,7 +36,7 @@ def flow_sampling(num_samples, shape, ut_theta, t_theta, c_theta=None, c=None, n
         if c_theta is not None:
             if c is not None:
                 ut_theta_inp.append(c_theta(c))
-        ut_hat = ut_theta(tf.concat(ut_theta_inp, axis=-1))
+        ut_hat = ut_theta(np.concat(ut_theta_inp, axis=-1))
         return ut_hat
 
     noise = np.random.randn(*([num_samples] + list(shape)))
