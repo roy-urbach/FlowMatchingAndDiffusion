@@ -7,7 +7,7 @@ def flow_matching_loss(ut_theta, t_theta, x1, c_theta=None, c=None, at=None):
     t = tf.random.uniform([n])
     alpha_t = expand_t(at(t) if at is not None else t, x1.shape)
     x0 = tf.random.normal(x1.shape)
-    xt = alpha_t * x0 + (1 - alpha_t) * x1
+    xt = (1 - alpha_t) * x0 + alpha_t * x1
     ut = x1 - x0
     enc_t = t_theta(t)
     f_ut_inp = [xt, enc_t]
@@ -24,7 +24,7 @@ def diffusion_loss(eps_theta, t_theta, x0, c_theta=None, c=None, at=None, lambda
     t = tf.random.uniform([n])
     alpha_t = expand_t(at(t) if at is not None else t, x0.shape)
     eps = tf.random.randn(x0.shape)
-    xt = tf.math.sqrt(alpha_t) * x0 + tf.math.sqrt(1 - alpha_t) * eps
+    xt = tf.math.sqrt(1-alpha_t) * x0 + tf.math.sqrt(alpha_t) * eps
     enc_t = t_theta(t)
     wt = lambda_t(t) if lambda_t is not None else 1
     eps_theta_inp = [xt, enc_t]
@@ -41,7 +41,7 @@ def diffusion_loss_predict_target(x0_theta, t_theta, x0, c_theta=None, c=None, a
     t = tf.random.uniform([n])
     alpha_t = expand_t(at(t) if at is not None else t, x0.shape)
     eps = tf.random.randn(x0.shape)
-    xt = tf.math.sqrt(alpha_t) * x0 + tf.math.sqrt(1 - alpha_t) * eps
+    xt = tf.math.sqrt(1 - alpha_t) * x0 + tf.math.sqrt(alpha_t) * eps
     enc_t = t_theta(t)
     wt = lambda_t(t) if lambda_t is not None else 1
     x0_theta_inp = [xt, enc_t]
